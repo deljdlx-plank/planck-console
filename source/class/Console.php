@@ -24,6 +24,14 @@ class Console
         });
     }
 
+    public function pullAll($path)
+    {
+        $this->foreachPath($path, function($path) {
+            return $this->pull($path);
+        });
+    }
+
+
 
     public function resetAll($path)
     {
@@ -33,6 +41,24 @@ class Console
     }
 
 
+
+
+
+
+    protected function pull($path)
+    {
+
+        if(!is_dir($path.'/.git')) {
+            return true;
+        }
+
+
+        $this->output("Git pull\n");
+        $this->output(system('git pull'));
+        $this->output("\n");
+
+        return true;
+    }
 
     protected function commit($path)
     {
